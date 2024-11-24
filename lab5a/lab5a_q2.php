@@ -10,12 +10,13 @@
             font-family: Arial, sans-serif;
         }
         th, td {
-            border: 1px solid #ddd;
+            border: 2px solid black; 
             padding: 10px;
-            text-align: left;
+            text-align: center; 
         }
         th {
-            background-color: #f4f4f4;
+            font-weight: bold;
+            background-color: #ffffff; 
         }
     </style>
 </head>
@@ -38,7 +39,7 @@
             'age' => 22
         ]
     ];
-
+    
     echo "<table>
             <tr>
                 <th>Name</th>
@@ -46,7 +47,6 @@
                 <th>Age</th>
             </tr>";
 
-    // Use foreach to loop through the $students array
     foreach ($students as $student) {
         echo "<tr>
                 <td>{$student['name']}</td>
@@ -55,7 +55,7 @@
               </tr>";
     }
 
-    // End the table
+
     echo "</table>";
     ?>
 </body>
