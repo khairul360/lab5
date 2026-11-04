@@ -3,17 +3,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $matric = $_POST['matric'];
     $name = $_POST['name'];
     $password = password_hash($_POST['password'], PASSWORD_BCRYPT); // Hash the password
-    $role = $_POST['role'];
+    $role = in_array($_POST['role'], ['student', 'lecturer'], true) ? $_POST['role'] : 'student';
 
     $conn = new mysqli('localhost', 'root', '', 'lab_5b'); // Connect to database
     if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
     // Insert user data into the database
-    $sql = "INSERT INTO users (matric, name, password, role) VALUES ('$matric', '$name', '$password', '$role')";
-    if ($conn->query($sql)) {
-        echo "Registration successful!";
+    $stmt = $conn->prepare("INSERT INTO users (matric, name, password, role) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param('ssss', $matric, $name, $password, $role);
+    if ($stmt->execute()) {
+        echo "Registration successful! <a href='login.php'>Log in</a>";
     } else {
-        echo "Error: " . $conn->error;
+        echo "Registration failed. That matric number may already be registered.";
     }
     $conn->close();
 }

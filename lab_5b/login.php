@@ -10,14 +10,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
 
     // Fetch user record from the database
-    $sql = "SELECT * FROM users WHERE matric = '$matric'";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT * FROM users WHERE matric = ?");
+    $stmt->bind_param('s', $matric);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         if (password_verify($password, $user['password'])) { // Verify hashed password
+            session_regenerate_id(true); // Prevent session fixation
             $_SESSION['user'] = $user;
-            header("Location: manage_users.php"); // Redirect to manage users page
+            header("Location: manage_user.php"); // Redirect to manage users page
             exit;
         } else {
             $error = "Invalid username or password.";

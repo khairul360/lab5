@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update_stmt->bind_param('sss', $name, $role, $matric);
     $update_stmt->execute();
 
-    echo "User updated successfully! <a href='manage_users.php'>Go back to Manage Users</a>";
+    echo "User updated successfully! <a href='manage_user.php'>Go back to Manage Users</a>";
     exit;
 }
 
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </select><br><br>
 
         <button type="submit">Update</button>
-        <a href="manage_users.php">Cancel</a>
+        <a href="manage_user.php">Cancel</a>
     </form>
 </body>
 </html>
