@@ -12,6 +12,7 @@ Server-side PHP exercises, from basic output up to a small user-management syste
 - `login.php`: session-based login with `password_verify`
 - `manage_user.php`: lists all users from the database
 - `update_user.php`: edits a user record with prepared statements
+- `delete_user.php`: deletes a user record with a prepared statement
 
 **Tech:** PHP · MySQL (mysqli) · HTML/CSS
 
